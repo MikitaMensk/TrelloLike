@@ -1,6 +1,8 @@
 import { 
     ADD_ARTICLE,
     ADD_COLUMN,
+    ADD_CARD,
+    DELETE_CARD,
 } from "../constants/action-types";
 
 const initialState = {
@@ -22,6 +24,10 @@ const initialState = {
             ],
         }
     ],
+    isAddCardOpen: false,
+    isAddColumnOpen: false,
+    isEditColumnOpen: false,
+    isEditCardOpen: false,
 };
 
 function rootReducer(state = initialState, action){
@@ -30,11 +36,29 @@ function rootReducer(state = initialState, action){
             articles: state.articles.concat(action.payload)
         });
     }
-    if(action.type === ADD_COLUMN){
+    else if(action.type === ADD_COLUMN){
         return Object.assign({}, state, {
-            articles: state.columns.concat(action.payload)
+            columns: state.columns.concat(action.payload)
         });
     }
+    else if(action.type === ADD_CARD){
+        let columnsCopy = state.columns.slice();
+        let thisColumn = columnsCopy[action.payload.index];
+        let cards = thisColumn.cards;
+        cards.push(action.payload.cardBody);
+        return Object.assign({}, state, {
+            columns: columnsCopy
+        });
+    } 
+    else if(action.type === DELETE_CARD){
+        let columnsCopy = state.columns.slice();
+        let thisColumn = columnsCopy[action.payload.columnIndex];
+        let cards = thisColumn.cards;
+        cards.splice(action.payload.cardIndex, 1);
+        return Object.assign({}, state, {
+            columns: columnsCopy
+        });
+    }  
     return state;
 }
 

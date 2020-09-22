@@ -2,16 +2,11 @@ import React from "react";
 import List from "./List";
 import Form from "./Form";
 import Main from "./Main";
+import Header from "./Header";
 
 const App = () => (
   <>
-	<header>
-        <div className="search-wrap">
-		  <input type="search" className="search" />
-        </div>
-		<h1>Trello</h1>
-		<button>+</button>
-	</header>
+    <Header />
     <Main />
     <div>
       <h2>Articles</h2>
