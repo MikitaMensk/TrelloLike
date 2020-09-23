@@ -1,4 +1,5 @@
 import React from "react";
+import './Modals.css';
 
 const Veil = () => (
   <div className="veil">

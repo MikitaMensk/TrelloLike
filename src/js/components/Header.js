@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import { addColumn, toggleVeil } from "../actions/index";
+import { toggleVeil, toggleAddColumn } from "../actions/index";
 
 function mapDispatchToProps(dispatch) {
     return {
-        addColumn: article => dispatch(addColumn(article)),
         toggleVeil: () => dispatch(toggleVeil()),
+        toggleAddColumn: () => dispatch(toggleAddColumn()),
     };
 }
 
@@ -18,10 +18,7 @@ class HeaderBox extends Component {
     }
     addNewColumn() {
         this.props.toggleVeil();
-        this.props.addColumn({
-            title: 'A new (this is a list)',
-            cards: [],
-        })
+        this.props.toggleAddColumn();
     }
     render(){
         return (

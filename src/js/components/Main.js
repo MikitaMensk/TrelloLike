@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addArticle, addCard, deleteCard } from "../actions/index";
+import { setCurrentColumn, toggleAddCard, toggleVeil, deleteCard } from "../actions/index";
 
 const mapStateToProps = state => {
   return { columns: state.columns };
@@ -8,8 +8,9 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addArticle: article => dispatch(addArticle(article)),
-    addCard: (card) => dispatch(addCard(card)),
+    setCurrentColumn: index => dispatch(setCurrentColumn(index)),
+    toggleAddCard: () => dispatch(toggleAddCard()),
+    toggleVeil: () => dispatch(toggleVeil()),
     deleteCard: (card) => dispatch(deleteCard(card)),
   };
 }
@@ -21,15 +22,19 @@ class MainField extends Component {
 
     };
   }
-
+  addNewCard(index) {
+    this.props.setCurrentColumn(index);
+    this.props.toggleVeil();
+    this.props.toggleAddCard();
+    //this.props.addCard({index: index, cardBody: {title: 'This is another card.', image: '', date: ''}})
+  }
   render() {
     return (
-        <main>
+        <main className="cardSheet">
             {
                 this.props.columns.map((el, index) => (
                     <div className="column" key={el.title}>
                         <h3>{el.title}</h3>
-                        <h4>{index}</h4>
                         <ul className="card-list">
                           {
                             el.cards.map((card, cardIndex) => (
@@ -40,7 +45,7 @@ class MainField extends Component {
                             ))
                           }
                         </ul>
-                        <button onClick={() => this.props.addCard({index: index, cardBody: {title: 'This is another card.', image: '', date: ''}})}>Add card</button>
+                        <button onClick={() => this.addNewCard(index)}>Add card</button>
                     </div>
                 ))
             }

@@ -1,25 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import './Modals.css';
-import { addCard, toggleVeil, toggleAddCard } from "../../actions/index";
-
-function mapStateToProps(state) {
-  return { currentColumn: state.currentColumn };
-};
+import { addColumn, toggleAddColumn, toggleVeil } from "../../actions/index";
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleVeil: () => dispatch(toggleVeil()),
-    toggleAddCard: () => dispatch(toggleAddCard()),
-    addCard: card => dispatch(addCard(card)),
+    toggleAddColumn: () => dispatch(toggleAddColumn()),
+    addColumn: column => dispatch(addColumn(column)),
   };
 }
 
-class AddCardModal extends Component {
+class AddColumnModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
+        title: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,10 +28,12 @@ class AddCardModal extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { title } = this.state;
-    //this.props.addArticle({ title });
-    this.props.addCard({index: this.props.currentColumn, cardBody: {title: title, image: '', date: ''}})
+    this.props.addColumn({
+        title: title,
+        cards: [],
+    })
     this.props.toggleVeil();
-    this.props.toggleAddCard();
+    this.props.toggleAddColumn();
     this.setState({ title: "" });
   }
   render() {
@@ -59,9 +57,9 @@ class AddCardModal extends Component {
   }
 }
 
-const AddCard = connect(
-  mapStateToProps,
+const AddColumn = connect(
+  null,
   mapDispatchToProps
-)(AddCardModal);
+)(AddColumnModal);
 
-export default AddCard;
+export default AddColumn;

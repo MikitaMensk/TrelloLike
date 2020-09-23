@@ -5,6 +5,8 @@ import Form from "./Form";
 import Main from "./Main";
 import Header from "./Header";
 import Veil from "./Modals/Veil";
+import AddColumn from "./Modals/AddColumn";
+import AddCard from "./Modals/AddCard";
 
 const mapStateToProps = state => {
   return { 
@@ -31,6 +33,12 @@ const AppComp = (props) => (
     </div>
     {
       props.isVeilShow ? <Veil /> : null
+    }
+    {
+      props.isAddColumnOpen ? <AddColumn /> : null
+    }
+    {
+      props.isAddCardOpen ? <AddCard /> : null
     }
   </div>
 );
