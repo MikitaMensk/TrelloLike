@@ -3,6 +3,7 @@ import {
     ADD_COLUMN,
     ADD_CARD,
     DELETE_CARD,
+    TOGGLE_VEIL,
 } from "../constants/action-types";
 
 export function addArticle(payload){
@@ -19,4 +20,8 @@ export function addCard(payload){
 
 export function deleteCard(payload){
     return { type: DELETE_CARD, payload };
+}
+
+export function toggleVeil(payload){
+    return { type: TOGGLE_VEIL, payload };
 }

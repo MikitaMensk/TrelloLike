@@ -3,6 +3,7 @@ import {
     ADD_COLUMN,
     ADD_CARD,
     DELETE_CARD,
+    TOGGLE_VEIL,
 } from "../constants/action-types";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
     isAddColumnOpen: false,
     isEditColumnOpen: false,
     isEditCardOpen: false,
+    isVeilShow: false,
 };
 
 function rootReducer(state = initialState, action){
@@ -59,6 +61,11 @@ function rootReducer(state = initialState, action){
             columns: columnsCopy
         });
     }  
+    else if(action.type === TOGGLE_VEIL){
+        return Object.assign({}, state, {
+            isVeilShow: !state.isVeilShow
+        });
+    }
     return state;
 }
 

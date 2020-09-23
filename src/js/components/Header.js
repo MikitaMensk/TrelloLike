@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import { addColumn } from "../actions/index";
+import { addColumn, toggleVeil } from "../actions/index";
 
 function mapDispatchToProps(dispatch) {
     return {
-        addColumn: article => dispatch(addColumn(article))
+        addColumn: article => dispatch(addColumn(article)),
+        toggleVeil: () => dispatch(toggleVeil()),
     };
 }
 
@@ -15,6 +16,13 @@ class HeaderBox extends Component {
 
         };
     }
+    addNewColumn() {
+        this.props.toggleVeil();
+        this.props.addColumn({
+            title: 'A new (this is a list)',
+            cards: [],
+        })
+    }
     render(){
         return (
             <header>
@@ -22,10 +30,7 @@ class HeaderBox extends Component {
                     <input type="search" className="search" />
                 </div>
                 <h1>Trello</h1>
-                <button onClick={() => this.props.addColumn({
-                    title: 'A new (this is a list)',
-                    cards: [],
-                })}>+</button>
+                <button onClick={() => this.addNewColumn()}>+</button>
             </header>
         );
     }
