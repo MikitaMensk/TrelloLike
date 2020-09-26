@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import './Modals.css';
-import { addCard, toggleVeil, toggleAddCard } from "../../actions/index";
+import { addCard, editCard, toggleVeil, toggleEditCard } from "../../actions/index";
 
 function mapStateToProps(state) {
-  return { currentColumn: state.currentColumn };
+  return { 
+    currentColumn: state.currentColumn,
+    currentCard: state.currentCard,
+    currentCardTitle: state.currentCardTitle,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleVeil: () => dispatch(toggleVeil()),
-    toggleAddCard: () => dispatch(toggleAddCard()),
+    toggleEditCard: () => dispatch(toggleEditCard()),
     addCard: card => dispatch(addCard(card)),
+    editCard: card => dispatch(editCard(card)),
   };
 }
 
-class AddCardModal extends Component {
+class EditCardModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
+      title: this.props.currentCardTitle,
+      image: '',
+      date: new Date(),
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,10 +38,12 @@ class AddCardModal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { title } = this.state;
-    this.props.addCard({index: this.props.currentColumn, cardBody: {title: title, image: '', date: new Date()}})
+    const { title, image, date } = this.state;
+    this.props.editCard(
+      {index: this.props.currentColumn, cardIndex: this.props.currentCard, cardBody: {title: title, image: image, date: date}}
+    );
     this.props.toggleVeil();
-    this.props.toggleAddCard();
+    this.props.toggleEditCard();
     this.setState({ title: "" });
   }
   render() {
@@ -51,16 +60,16 @@ class AddCardModal extends Component {
           />
         </main>
         <footer>
-            <button type="submit">Add</button>
+            <button type="submit">Edit</button>
         </footer>
       </form>
     );
   }
 }
 
-const AddCard = connect(
+const EditCard = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddCardModal);
+)(EditCardModal);
 
-export default AddCard;
+export default EditCard;

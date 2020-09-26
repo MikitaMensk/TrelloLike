@@ -64,6 +64,23 @@ h1 {
 .ordinary {
     background-color: #9bc400;
 }
+.card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.close, .edit {
+    margin-right: 5px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.edit {
+    background-image:  url("./img/edit_pencil.png");
+}
+.close {
+    background-image:  url("./img/close-32.png");
+}
 button {
     background-color: #8076a3;
     padding: 4px 7px;

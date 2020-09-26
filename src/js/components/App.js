@@ -7,6 +7,7 @@ import Header from "./Header";
 import Veil from "./Modals/Veil";
 import AddColumn from "./Modals/AddColumn";
 import AddCard from "./Modals/AddCard";
+import EditCard from "./Modals/EditCard";
 
 const mapStateToProps = state => {
   return { 
@@ -39,6 +40,9 @@ const AppComp = (props) => (
     }
     {
       props.isAddCardOpen ? <AddCard /> : null
+    }
+    {
+      props.isEditCardOpen ? <EditCard /> : null
     }
   </div>
 );

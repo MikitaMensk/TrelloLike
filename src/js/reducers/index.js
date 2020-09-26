@@ -3,10 +3,14 @@ import {
     ADD_COLUMN,
     ADD_CARD,
     DELETE_CARD,
+    EDIT_CARD,
     SET_CURRENT_COLUMN,
     TOGGLE_VEIL,
     TOGGLE_ADD_COLUMN,
     TOGGLE_ADD_CARD,
+    TOGGLE_EDIT_CARD,
+    SET_CURRENT_CARD,
+    SET_CURRENT_CARD_TITLE,
 } from "../constants/action-types";
 
 const initialState = {
@@ -29,6 +33,8 @@ const initialState = {
         }
     ],
     currentColumn: null,
+    currentCard: null,
+    currentCardTitle: '',
     isAddCardOpen: false,
     isAddColumnOpen: false,
     isEditColumnOpen: false,
@@ -52,6 +58,14 @@ function rootReducer(state = initialState, action){
         let thisColumn = columnsCopy[action.payload.index];
         let cards = thisColumn.cards;
         cards.push(action.payload.cardBody);
+        return Object.assign({}, state, {
+            columns: columnsCopy
+        });
+    } 
+    else if(action.type === EDIT_CARD){
+        let columnsCopy = state.columns.slice();
+        let thisColumn = columnsCopy[action.payload.index];
+        thisColumn.cards[action.payload.cardIndex] = action.payload.cardBody;
         return Object.assign({}, state, {
             columns: columnsCopy
         });
@@ -83,6 +97,21 @@ function rootReducer(state = initialState, action){
     else if(action.type === TOGGLE_ADD_CARD){
         return Object.assign({}, state, {
             isAddCardOpen: !state.isAddCardOpen
+        });
+    }
+    else if(action.type === TOGGLE_EDIT_CARD){
+        return Object.assign({}, state, {
+            isEditCardOpen: !state.isEditCardOpen
+        });
+    }
+    else if(action.type === SET_CURRENT_CARD){
+        return Object.assign({}, state, {
+            currentCard: action.payload
+        });
+    }
+    else if(action.type === SET_CURRENT_CARD_TITLE){
+        return Object.assign({}, state, {
+            currentCardTitle: action.payload
         });
     }
     return state;

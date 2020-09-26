@@ -3,10 +3,14 @@ import {
     ADD_COLUMN,
     ADD_CARD,
     DELETE_CARD,
+    EDIT_CARD,
     SET_CURRENT_COLUMN,
     TOGGLE_VEIL,
     TOGGLE_ADD_COLUMN,
     TOGGLE_ADD_CARD,
+    TOGGLE_EDIT_CARD,
+    SET_CURRENT_CARD,
+    SET_CURRENT_CARD_TITLE,
 } from "../constants/action-types";
 
 export function addArticle(payload){
@@ -25,8 +29,20 @@ export function deleteCard(payload){
     return { type: DELETE_CARD, payload };
 }
 
+export function editCard(payload){
+    return { type: EDIT_CARD, payload };
+}
+
 export function setCurrentColumn(payload){
     return { type: SET_CURRENT_COLUMN, payload };
+}
+
+export function setCurrentCard(payload){
+    return { type: SET_CURRENT_CARD, payload };
+}
+
+export function setCurrentCardTitle(payload){
+    return { type: SET_CURRENT_CARD_TITLE, payload };
 }
 
 export function toggleVeil(payload){
@@ -39,4 +55,8 @@ export function toggleAddColumn(payload){
 
 export function toggleAddCard(payload){
     return { type: TOGGLE_ADD_CARD, payload };
+}
+
+export function toggleEditCard(payload){
+    return { type: TOGGLE_EDIT_CARD, payload };
 }
